@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/role/main",
     "pages/logs/main"  ],
   "window": {
     "backgroundTextStyle": "light",

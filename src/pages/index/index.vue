@@ -18,21 +18,11 @@
         </button>
       </view>
     </view>
-
-    <div style="padding: .24rem;height: 100%;">
-      <div class="authentication-info">
-        <mt-input
-                disableClear label="姓名"
-                placeholder="请输入您的真实姓名"
-                v-model="name">
-        </mt-input>
-        <mt-input
-                disableClear label="身份证号"
-                placeholder="请输入您的身份证号码"
-                v-model="idCardNum">
-        </mt-input>
-      </div>
-    </div>
+    <i-panel>
+      <i-input :value=name title="姓名" autofocus placeholder="请输入姓名" />
+      <i-input :value=idCardNum title="身份证" autofocus placeholder="请输入18位身份证号" />
+      <i-button @click="handleClick">确认</i-button>
+    </i-panel>
   </div>
 </template>
 
@@ -43,6 +33,8 @@
     data () {
       return {
         userInfo: {},
+        name: '',
+        idCardNum: '',
       }
     },
     methods: {
@@ -77,43 +69,17 @@
 
       store() {
         wx.setStorageSync('userInfo',app.globalData.userInfo)
-        // wx.setStorageSync('userInfo','testtest')
-        // wx.setStorage({
-        //     key:'userInfo',
-        //     data:app.globalData.userInfo,
-        //     success: function(res) {
-        //         console.log(res)
-        //     },
-        //     fail: function(res) {
-        //         console.log(res)
-        //     }
-        // })
       },
-
-      toCollectPage () {
-        if (!app.globalData.userInfo.userId) {
-          wx.showToast({
-            title: '请先登录',
-            image: '/static/images/warn.png',
-            duration: 1000,
-            mask:true
-          })
-          return
-        }
+      handleClick () {
         wx.navigateTo({
-          url: `/pages/collect-pool/main`,
+          url: `/pages/role/main`,
         })
       },
-      toMyCard () {
+      handleClick (e) {
         wx.navigateTo({
-          url: `/pages/my-card/main`,
+          url: `/pages/role/main`,
         })
       },
-      toMyCourse () {
-        wx.navigateTo({
-          url: `/pages/my-course/main`,
-        })
-      }
     },
     onLoad (option) {
       this.userInfo = app.globalData.userInfo || {}
@@ -122,65 +88,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .user-box {
-    position: relative;
-    width: 100%;
-    height: 300rpx;
-    border-radius: 10rpx;
-    overflow: hidden;
-    box-shadow: 0 5rpx 27rpx 0 rgba(78,153,206,0.4);
-    .mine-bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 10rpx;
-      z-index: -1;
-    }
-    .user-content {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-    }
-    .avatar {
-      width: 120rpx;
-      height: 120rpx;
-      margin: 24rpx 0;
-      background: #FFFFFF;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    .default {
-      width: 120rpx;
-      height: 120rpx;
-      margin: 24rpx 0;
-      padding: 0;
-      background: #FFFFFF;
-      border-radius: 50%;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: none;
-      image {
-        width: 62rpx;
-        height: 67rpx;
-      }
-    }
-    .info {
-      border: none;
-      padding: 0;
-      color: #F8F8F8;
-      .tip {
-        font-size: 32rpx;
-        line-height: 1;
-        font-weight: bold;
-      }
-      .more {
-        margin-top: 24rpx;
-        font-size: 22rpx;
-      }
-    }
-  }
   .authentication-info{
     position: relative;
     background: #ffffff;
@@ -265,4 +172,71 @@
     box-shadow: 0 .08rem .29rem 0 rgba(44,132,194,0.4);
     border-radius: .6rem;
   }
+  .message {
+    color: red;
+    padding: 10px;
+    text-align: center;
+  }
+  .user-box {
+    position: relative;
+    width: 100%;
+    height: 300rpx;
+    border-radius: 10rpx;
+    overflow: hidden;
+    box-shadow: 0 5rpx 27rpx 0 rgba(78,153,206,0.4);
+    .mine-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10rpx;
+      z-index: -1;
+    }
+    .user-content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .avatar {
+      width: 120rpx;
+      height: 120rpx;
+      margin: 24rpx 0;
+      background: #FFFFFF;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .default {
+      width: 120rpx;
+      height: 120rpx;
+      margin: 24rpx 0;
+      padding: 0;
+      background: #FFFFFF;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      image {
+        width: 62rpx;
+        height: 67rpx;
+      }
+    }
+    .info {
+      border: none;
+      padding: 0;
+      color: #F8F8F8;
+      .tip {
+        font-size: 32rpx;
+        line-height: 1;
+        font-weight: bold;
+      }
+      .more {
+        margin-top: 24rpx;
+        font-size: 22rpx;
+      }
+    }
+  }
+
+
+
 </style>
